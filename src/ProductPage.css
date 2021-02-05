@@ -1,0 +1,84 @@
+.productPage {
+	margin: 0 10vw;
+	background-color: white;
+	padding: 10px;
+	margin-top: 80px;
+}
+.productPage__Top {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+.productPage__image {
+	width: 50%;
+	height: 50%;
+	margin-bottom: 10px;
+	object-fit: contain;
+	max-width: 300px;
+	max-height: 300px;
+	border-bottom: 1px solid lightgray;
+}
+.productPage__info {
+	width: 80%;
+}
+.productPage__reviewSection,
+.productPage__featuresSection {
+	margin-top: 40px;
+}
+.productPage__review,
+.productPage__feature {
+	margin: 10px 0;
+}
+.productPage__reviewForm {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 10px;
+}
+.productPage__reviewForm > input {
+	outline: none;
+	border: none;
+	border-bottom: 1px solid lightgray;
+	padding: 5px;
+	margin-right: 5px;
+	flex: 1;
+}
+.productPage__reviewForm > button {
+	flex: 0;
+}
+.productPage__reviewContact {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+.productPage__reviewContact > p {
+	margin-left: 5px;
+}
+.productPage__reviewDeleteBtn {
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+.productPage button {
+	background: #f0c14b;
+	border: 1px solid;
+	margin-top: 10px;
+	border-color: #a88734 #9c7e31 #846a29;
+	color: #111;
+	cursor: pointer;
+	padding: 3px;
+}
+.productPage__features {
+	list-style-type: none;
+}
+.productPage__reviewContact__email {
+	color: gray;
+}
+@media screen and (min-width: 550px) {
+	.productPage__Top {
+		align-items: center;
+		flex-direction: row;
+		justify-content: space-evenly;
+	}
+	.productPage__info {
+		width: 40%;
+	}
+}
