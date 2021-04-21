@@ -67,12 +67,12 @@ function ProductPage() {
 		});
 	};
 	return (
-		<div className="productPage">
+		<section className="productPage">
 			{!product ? (
 				<h1>{status}</h1>
 			) : (
 				<>
-					<div className="productPage__Top">
+					<section className="productPage__Top">
 						<img className="productPage__image" src={product?.image} alt="" />
 						<div className="productPage__info">
 							<h2>{product?.title}</h2>
@@ -100,8 +100,8 @@ function ProductPage() {
 							</div>
 							<button onClick={addToBasket}>Add to Basket</button>
 						</div>
-					</div>
-					<div className="productPage__featuresSection">
+					</section>
+					<section className="productPage__featuresSection">
 						<p>
 							<strong>Delivery in : </strong>
 							{product?.eta} minutes
@@ -114,8 +114,8 @@ function ProductPage() {
 								</li>
 							))}
 						</ul>
-					</div>
-					<div className="productPage__reviewSection">
+					</section>
+					<section className="productPage__reviewSection">
 						<h2 className="productPage__reviewSection__title">Reviews</h2>
 						{product?.reviews.length === 0 ? (
 							<p>No reviews available for this product</p>
@@ -162,10 +162,10 @@ function ProductPage() {
 								Submit
 							</button>
 						</form>
-					</div>
+					</section>
 				</>
 			)}
-		</div>
+		</section>
 	);
 }
 

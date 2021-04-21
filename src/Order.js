@@ -11,7 +11,7 @@ function Order({ order }) {
 		return unsubscribe();
 	}, []);
 	return (
-		<div className="order">
+		<section className="order">
 			<h1>
 				<center>
 					<strong>Order</strong>
@@ -21,7 +21,7 @@ function Order({ order }) {
 				<strong>Status : </strong>
 				{order.data.orderStatus?.replace(/^\w/, (c) => c.toUpperCase())}
 			</p>
-			<div className="order__details">
+			<article className="order__details">
 				<p>
 					<strong>Time : </strong>
 					{moment.unix(order.data.created).format("MMMM Do YYYY, h:mma")}
@@ -29,7 +29,7 @@ function Order({ order }) {
 				<p>
 					<strong>Order id:</strong> {order.id}
 				</p>
-			</div>
+			</article>
 			<hr />
 			<Suspense fallback={<div>Loading...</div>}>
 				{order.data.basket?.map((item) => (
@@ -45,7 +45,7 @@ function Order({ order }) {
 				))}
 			</Suspense>
 			<hr />
-			<div className="order__footer">
+			<article className="order__footer">
 				{order?.data.amount && (
 					<CurrencyFormat
 						renderText={(value) => (
@@ -61,8 +61,8 @@ function Order({ order }) {
 						prefix={"₹"}
 					></CurrencyFormat>
 				)}
-			</div>
-		</div>
+			</article>
+		</section>
 	);
 }
 

@@ -25,7 +25,7 @@ function SignUp() {
 			.catch((error) => setError(error.message));
 	};
 	return (
-		<div className="signUp">
+		<section className="signUp">
 			<Link to="/">
 				<img
 					className="signUp__logo"
@@ -33,7 +33,7 @@ function SignUp() {
 					alt="banner"
 				></img>
 			</Link>
-			<div className="signUp__container">
+			<main className="signUp__container">
 				<h1>Sign-Up</h1>
 				<form>
 					<h5>Name</h5>
@@ -74,8 +74,8 @@ function SignUp() {
 				>
 					Sign-In
 				</button>
-			</div>
-		</div>
+			</main>
+		</section>
 	);
 }
 

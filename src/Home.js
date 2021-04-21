@@ -53,8 +53,8 @@ function Home() {
 		});
 	}, [products]);
 	return (
-		<div className="home">
-			<div id="slideshow" className="home__container">
+		<section className="home">
+			<article id="slideshow" className="home__container">
 				<ArrowBackIosIcon id="home__slideshowBack" />
 				<img
 					alt="banner"
@@ -79,8 +79,8 @@ function Home() {
 					src="https://images-eu.ssl-images-amazon.com/images/G/31/img19/AmazonPay/Rajeshwari/September/GWBanners/Control/DesktopHero_3000x1200._CB405007888_.jpg"
 				/>
 				<ArrowForwardIosIcon id="home__slideshowForward" />
-			</div>
-			<div className="home__row">
+			</article>
+			<article className="home__row">
 				<Suspense fallback={<div>Loading...</div>}>
 					{products.map(({ id, product }, index) => (
 						<Product
@@ -94,8 +94,8 @@ function Home() {
 						/>
 					))}
 				</Suspense>
-			</div>
-		</div>
+			</article>
+		</section>
 	);
 }
 

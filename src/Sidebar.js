@@ -26,7 +26,7 @@ function Sidebar() {
 		}
 	}, [user]);
 	return (
-		<div className="sidebar">
+		<section className="sidebar">
 			<Link to={user ? "/" : "/login"}>
 				<div onClick={handleAuthentiction} className="sidebar__option">
 					<span className="sidebar__optionLineOne">
@@ -67,7 +67,7 @@ function Sidebar() {
 					</span>
 				</div>
 			</Link>
-		</div>
+		</section>
 	);
 }
 

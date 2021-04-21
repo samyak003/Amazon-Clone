@@ -28,8 +28,8 @@ function Header() {
 		}
 	}, [user]);
 	return (
-		<div className="header">
-			<div className="header__left">
+		<header className="header">
+			<section className="header__left">
 				<MenuIcon
 					className="header__menuBtn"
 					onClick={() => {
@@ -47,8 +47,8 @@ function Header() {
 					<input className="header__searchInput" type="text"></input>
 					<SearchIcon className="header__searchIcon"></SearchIcon>
 				</div>
-			</div>
-			<div className="header__nav">
+			</section>
+			<nav className="header__nav">
 				<Link to={user ? "/" : "/login"}>
 					<div onClick={handleAuthentiction} className="header__option">
 						<span className="header__optionLineOne">
@@ -89,9 +89,9 @@ function Header() {
 						</span>
 					</div>
 				</Link>
-			</div>
+			</nav>
 			<Sidebar />
-		</div>
+		</header>
 	);
 }
 

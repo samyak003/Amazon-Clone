@@ -9,7 +9,7 @@ function Subtotal() {
 	const history = useHistory();
 	const [{ basket, user }] = useStateValue();
 	return (
-		<div className="subtotal">
+		<section className="subtotal">
 			<CurrencyFormat
 				renderText={(value) => (
 					<>
@@ -37,7 +37,7 @@ function Subtotal() {
 			>
 				Proceed to Checkout
 			</button>
-		</div>
+		</section>
 	);
 }
 

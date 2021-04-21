@@ -28,14 +28,14 @@ function Orders() {
 		}
 	});
 	return (
-		<div className="orders">
+		<section className="orders">
 			<h1>
 				<center>{user ? "Your orders" : "Sign In to check your orders"}</center>
 			</h1>
 			{orders.map((order, index) => (
 				<Order order={order} key={index} />
 			))}
-		</div>
+		</section>
 	);
 }
 

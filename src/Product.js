@@ -21,9 +21,9 @@ function Product({ id, title, image, price, rating, index }) {
 	};
 
 	return (
-		<div className="product">
+		<section className="product">
 			<Link to={`/product/${id}`}>
-				<div className="product__details">
+				<main className="product__details">
 					<div className="product__info">
 						<p>{title}</p>
 						<CurrencyFormat
@@ -50,14 +50,14 @@ function Product({ id, title, image, price, rating, index }) {
 						</div>
 					</div>
 					<img src={image} alt="Product" />
-				</div>
+				</main>
 			</Link>
 			<center>
 				<button className="product__addBtn" onClick={addToBasket}>
 					Add to Basket
 				</button>
 			</center>
-		</div>
+		</section>
 	);
 }
 

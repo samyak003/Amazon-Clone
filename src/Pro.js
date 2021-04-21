@@ -41,7 +41,7 @@ function Pro() {
 		history.replace("/payment");
 	};
 	return (
-		<div className="pro">
+		<section className="pro">
 			<ul>
 				<li>Get access to exclusive themes.</li>
 				<li>Get faster deliveries.</li>
@@ -55,7 +55,7 @@ function Pro() {
 					Join Prime{" "}
 				</button>
 			</div>
-		</div>
+		</section>
 	);
 }
 

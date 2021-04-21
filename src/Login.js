@@ -23,7 +23,7 @@ function Login() {
 		history.push("/signUp");
 	};
 	return (
-		<div className="login">
+		<section className="login">
 			<Link to="/">
 				<img
 					className="login__logo"
@@ -31,7 +31,7 @@ function Login() {
 					alt="banner"
 				></img>
 			</Link>
-			<div className="login__container">
+			<main className="login__container">
 				<h1>Sign-In</h1>
 				<form>
 					<h5>E-mail</h5>
@@ -63,8 +63,8 @@ function Login() {
 				<button onClick={register} className="login__registerButton">
 					Create Your Amazon Account
 				</button>
-			</div>
-		</div>
+			</main>
+		</section>
 	);
 }
 

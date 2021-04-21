@@ -12,7 +12,7 @@ function CheckoutProduct({
 	quantity,
 	hideButton,
 }) {
-	const [{ basket }, dispatch] = useStateValue();
+	const [, dispatch] = useStateValue();
 	const removeFromBasket = () => {
 		// remove the item from the basket
 		dispatch({
@@ -47,9 +47,9 @@ function CheckoutProduct({
 		});
 	};
 	return (
-		<div className="checkoutProduct">
+		<article className="checkoutProduct">
 			<img className="checkoutProduct__image" alt="Product" src={image} />
-			<div className="checkoutProduct__info">
+			<main className="checkoutProduct__info">
 				<p className="checkoutProduct__title">{title}</p>
 				<CurrencyFormat
 					renderText={(value) => (
@@ -96,8 +96,8 @@ function CheckoutProduct({
 				{!hideButton && (
 					<button onClick={removeFromBasket}>Remove from basket</button>
 				)}
-			</div>
-		</div>
+			</main>
+		</article>
 	);
 }
 

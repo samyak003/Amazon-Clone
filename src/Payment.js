@@ -1,4 +1,4 @@
-import React, { useState, useEffect,Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useStateValue } from "./StateProvider";
 import { Link } from "react-router-dom";
 import "./Payment.css";
@@ -110,8 +110,8 @@ function Payment() {
 	};
 
 	return (
-		<div className="payment">
-			<div className="payment__container">
+		<section className="payment">
+			<main className="payment__container">
 				<h1>
 					Checkout (<Link to="/checkout">{basket?.length} items</Link>)
 				</h1>
@@ -125,7 +125,7 @@ function Payment() {
 						<p>New Delhi, India</p>
 					</div>
 				</div>
-				<div className="payment__section">
+				<section className="payment__section">
 					<div className="payment__title">
 						<h3>Review items and delivery</h3>
 					</div>
@@ -145,12 +145,12 @@ function Payment() {
 							))}
 						</Suspense>
 					</div>
-				</div>
-				<div className="payment__section">
+				</section>
+				<section className="payment__section">
 					<div className="payment__title">
 						<h3>Payment Method</h3>
 					</div>
-					<div className="payment__details">
+					<article className="payment__details">
 						<form onSubmit={handleSubmit}>
 							<div className="price__container">
 								<div className="cardEntry">
@@ -193,10 +193,10 @@ function Payment() {
 								</p>
 							)}
 						</form>
-					</div>
-				</div>
-			</div>
-		</div>
+					</article>
+				</section>
+			</main>
+		</section>
 	);
 }
 
