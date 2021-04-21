@@ -8,7 +8,7 @@ import Order from "./Order";
 
 function Orders() {
 	const [orders, setOrders] = useState([]);
-	const [{ user }, dispatch] = useStateValue();
+	const [{ user }] = useStateValue();
 
 	useEffect(() => {
 		if (user) {
@@ -16,7 +16,8 @@ function Orders() {
 				.doc(user?.uid)
 				.collection("orders")
 				.orderBy("created", "desc")
-				.onSnapshot((snapshot) => {
+				.get()
+				.then((snapshot) => {
 					setOrders(
 						snapshot.docs.map((doc) => ({
 							id: doc.id,

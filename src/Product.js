@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Product.css";
 import { useHistory, Link } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 import CurrencyFormat from "react-currency-format";
-import { useEffect } from "react";
 
 function Product({ id, title, image, price, rating, index }) {
-	const history = useHistory();
 	const [{ basket }, dispatch] = useStateValue();
+
 	const addToBasket = () => {
 		dispatch({
 			type: "ADD_TO_BASKET",
@@ -20,6 +19,7 @@ function Product({ id, title, image, price, rating, index }) {
 			},
 		});
 	};
+
 	return (
 		<div className="product">
 			<Link to={`/product/${id}`}>

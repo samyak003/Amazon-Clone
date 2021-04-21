@@ -1,6 +1,6 @@
 import React from "react";
 import "./ProductPage.css";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { db } from "./firebase";
 import { useStateValue } from "./StateProvider";
 import { useEffect } from "react";
@@ -102,6 +102,10 @@ function ProductPage() {
 						</div>
 					</div>
 					<div className="productPage__featuresSection">
+						<p>
+							<strong>Delivery in : </strong>
+							{product?.eta} minutes
+						</p>
 						<h2>Features</h2>
 						<ul className="productPage__features">
 							{product?.features.map((feature, index) => (

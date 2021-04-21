@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import "./Home.css";
-import Product from "./Product";
 import { db } from "./firebase";
 import { useState } from "react";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import { Suspense } from "react";
 
+const Product = React.lazy(() => import("./Product"));
 function Home() {
 	const [products, setProducts] = useState([]);
+
 	useEffect(() => {
 		var slideIndex = 1;
 		showDivs(slideIndex);
@@ -79,17 +81,19 @@ function Home() {
 				<ArrowForwardIosIcon id="home__slideshowForward" />
 			</div>
 			<div className="home__row">
-				{products.map(({ id, product }, index) => (
-					<Product
-						key={id}
-						id={id}
-						index={index}
-						image={product.image}
-						title={product.title}
-						price={product.price}
-						rating={product.rating}
-					/>
-				))}
+				<Suspense fallback={<div>Loading...</div>}>
+					{products.map(({ id, product }, index) => (
+						<Product
+							key={id}
+							id={id}
+							index={index}
+							image={product.image}
+							title={product.title}
+							price={product.price}
+							rating={product.rating}
+						/>
+					))}
+				</Suspense>
 			</div>
 		</div>
 	);

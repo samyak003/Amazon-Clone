@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,Suspense } from "react";
 import { useStateValue } from "./StateProvider";
-import CheckoutProduct from "./CheckoutProduct";
 import { Link } from "react-router-dom";
 import "./Payment.css";
 import { db } from "./firebase";
@@ -9,6 +8,7 @@ import { getBasketTotal } from "./reducer";
 import { useHistory } from "react-router-dom";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "./axios";
+const CheckoutProduct = React.lazy(() => import("./CheckoutProduct"));
 
 function Payment() {
 	const history = useHistory();
@@ -35,7 +35,6 @@ function Payment() {
 		};
 		getClientSecret();
 	}, [basket]);
-
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		setProcessing(true);
@@ -47,16 +46,43 @@ function Payment() {
 				},
 			})
 			.then(({ paymentIntent }) => {
-				db.collection("users")
-					.doc(user?.uid)
-					.collection("orders")
-					.doc(paymentIntent.id)
-					.set({
-						basket: basket,
-						amount: paymentIntent.amount,
-						created: paymentIntent.created,
+				let eta;
+				const order = async () => {
+					await db
+						.collection("users")
+						.doc(user?.uid)
+						.collection("orders")
+						.doc(paymentIntent.id)
+						.set({
+							basket: basket,
+							amount: paymentIntent.amount,
+							created: paymentIntent.created,
+						});
+					if (basket[0].title === "Amazon Pro") {
+						eta = 0;
+					} else {
+						eta = await db
+							.collection("products")
+							.orderBy("eta", "desc")
+							.where(
+								"title",
+								"in",
+								basket.map((item) => {
+									return item.title;
+								}),
+							)
+							.get()
+							.then((snapshot) => {
+								return snapshot.docs[0].data().eta;
+							});
+					}
+				};
+				order().then(() => {
+					axios({
+						method: "get",
+						url: `/newOrder?uid=${user.uid}&orderId=${paymentIntent.id}&eta=${eta}`,
 					});
-
+				});
 				setSucceeded(true);
 				setError(null);
 				setProcessing(false);
@@ -65,6 +91,17 @@ function Payment() {
 					type: "CLEAR_BASKET",
 				});
 			});
+		const setPro = async () => {
+			if (user) {
+				const response = await axios({
+					method: "post",
+					url: `/setPro?uid=${user.uid}`,
+				});
+			}
+		};
+		if (basket[0].title === "Amazon Pro") {
+			setPro();
+		}
 	};
 
 	const handleChange = (event) => {
@@ -93,17 +130,20 @@ function Payment() {
 						<h3>Review items and delivery</h3>
 					</div>
 					<div className="payment__items">
-						{basket.map((item) => (
-							<CheckoutProduct
-								key={item.id}
-								id={item.id}
-								image={item.image}
-								title={item.title}
-								price={item.price}
-								rating={item.rating}
-								quantity={item.quantity}
-							/>
-						))}
+						<Suspense fallback={<div>Loading...</div>}>
+							{basket.map((item) => (
+								<CheckoutProduct
+									key={item.id}
+									id={item.id}
+									image={item.image}
+									title={item.title}
+									price={item.price}
+									rating={item.rating}
+									quantity={item.quantity}
+									hideButton={item.hideButton}
+								/>
+							))}
+						</Suspense>
 					</div>
 				</div>
 				<div className="payment__section">

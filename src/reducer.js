@@ -16,6 +16,14 @@ const reducer = (state, action) => {
 			const ids = state.basket.findIndex(
 				(basketItem) => basketItem.id === action.item.id,
 			);
+			if (state.basket.length === 1) {
+				if (state.basket[0].title === "Amazon Pro") {
+					return {
+						...state,
+						basket: [...state.basket],
+					};
+				}
+			}
 			if (ids >= 0) {
 				state.basket[ids].quantity++;
 			} else {

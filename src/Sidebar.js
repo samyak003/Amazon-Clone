@@ -1,17 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import { Link } from "react-router-dom";
+import { db } from "./firebase";
 import { useStateValue } from "./StateProvider";
 import { auth } from "./firebase";
 
 function Sidebar() {
 	const [{ basket, user }, dispatch] = useStateValue();
+	const [proUser, setProUser] = useState(false);
 	const handleAuthentiction = () => {
 		if (user) {
 			auth.signOut();
 		}
 	};
+	useEffect(() => {
+		if (user) {
+			db.collection("users")
+				.doc(user?.uid)
+				.onSnapshot((snapshot) => {
+					if (snapshot.data()) {
+						setProUser(snapshot.data().pro);
+					}
+				});
+		}
+	}, [user]);
 	return (
 		<div className="sidebar">
 			<Link to={user ? "/" : "/login"}>
@@ -30,10 +43,22 @@ function Sidebar() {
 					<span className="sidebar__optionLineTwo">& Orders</span>
 				</div>
 			</Link>
-			<div onClick={() => alert("Available soon")} className="sidebar__option">
-				<span className="sidebar__optionLineOne">Github</span>
-				<span className="sidebar__optionLineTwo">Repo</span>
-			</div>
+			<a href="https://github.com/samyak003/Amazon-Clone">
+				<div className="sidebar__option">
+					<span className="sidebar__optionLineOne">Github</span>
+					<span className="sidebar__optionLineTwo">Repo</span>
+				</div>
+			</a>
+			{!proUser ? (
+				<Link to="/pro">
+					<div className="sidebar__option">
+						<span className="sidebar__optionLineOne">Upgrade To</span>
+						<span className="sidebar__optionLineTwo">Pro</span>
+					</div>
+				</Link>
+			) : (
+				<></>
+			)}
 			<Link to="/checkout">
 				<div className="sidebar__optionBasket">
 					<ShoppingBasketIcon />

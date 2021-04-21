@@ -1,10 +1,12 @@
-import React from "react";
+import React, { Suspense } from "react";
 import "./Checkout.css";
 import Subtotal from "./Subtotal";
 import { useStateValue } from "./StateProvider";
-import CheckoutProduct from "./CheckoutProduct";
+
+const CheckoutProduct = React.lazy(() => import("./CheckoutProduct"));
+
 function Checkout() {
-	const [{ basket, user }, dispatch] = useStateValue();
+	const [{ basket, user }] = useStateValue();
 	return (
 		<div className="checkout">
 			<div className="checkout__left">
@@ -21,19 +23,21 @@ function Checkout() {
 							: "Your Shopping Basket"}
 					</h2>
 					<div>
-						{basket.map((item) => {
-							return (
-								<CheckoutProduct
-									key={item.id}
-									id={item.id}
-									image={item.image}
-									title={item.title}
-									price={item.price}
-									rating={item.rating}
-									quantity={item.quantity}
-								></CheckoutProduct>
-							);
-						})}
+						<Suspense fallback={<div>Loading...</div>}>
+							{basket.map((item) => {
+								return (
+									<CheckoutProduct
+										key={item.id}
+										id={item.id}
+										image={item.image}
+										title={item.title}
+										price={item.price}
+										rating={item.rating}
+										quantity={item.quantity}
+									></CheckoutProduct>
+								);
+							})}
+						</Suspense>
 					</div>
 				</div>
 			</div>

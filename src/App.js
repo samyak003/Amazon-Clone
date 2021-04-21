@@ -13,11 +13,12 @@ import Orders from "./Orders";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import SignUp from "./SignUp";
+import Pro from "./Pro";
 
 const promise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
 function App() {
-	const [{ productId }, dispatch] = useStateValue();
+	const [, dispatch] = useStateValue();
 
 	useEffect(() => {
 		auth.onAuthStateChanged((authUser) => {
@@ -33,11 +34,15 @@ function App() {
 				});
 			}
 		});
-	}, []);
+	}, [dispatch]);
 	return (
 		<Router>
 			<div className="App">
 				<Switch>
+					<Route path="/pro">
+						<Header />
+						<Pro />
+					</Route>
 					<Route path="/checkout">
 						<Header />
 						<Checkout />

@@ -1,6 +1,6 @@
 {
 	"name": "amazon-clone",
-	"version": "0.1.0",
+	"version": "1.1.0",
 	"private": true,
 	"dependencies": {
 		"@material-ui/core": "^4.11.3",
@@ -12,6 +12,7 @@
 		"@testing-library/user-event": "^7.1.2",
 		"axios": "^0.20.0",
 		"env-cmd": "^10.1.0",
+		"firebase": "^8.2.9",
 		"moment": "^2.29.1",
 		"react": "^16.14.0",
 		"react-currency-format": "^1.0.0",

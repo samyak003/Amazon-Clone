@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Order.css";
 import moment from "moment";
-import CheckoutProduct from "./CheckoutProduct";
 import CurrencyFormat from "react-currency-format";
+import { Suspense } from "react";
+const CheckoutProduct = React.lazy(() => import("./CheckoutProduct"));
 
 function Order({ order }) {
+	useEffect(() => {
+		const unsubscribe = () => {};
+		return unsubscribe();
+	}, []);
 	return (
 		<div className="order">
 			<h1>
@@ -12,6 +17,10 @@ function Order({ order }) {
 					<strong>Order</strong>
 				</center>
 			</h1>
+			<p>
+				<strong>Status : </strong>
+				{order.data.orderStatus?.replace(/^\w/, (c) => c.toUpperCase())}
+			</p>
 			<div className="order__details">
 				<p>
 					<strong>Time : </strong>
@@ -22,17 +31,19 @@ function Order({ order }) {
 				</p>
 			</div>
 			<hr />
-			{order.data.basket?.map((item) => (
-				<CheckoutProduct
-					id={item.id}
-					title={item.title}
-					price={item.price}
-					rating={item.rating}
-					image={item.image}
-					quantity={item.quantity}
-					hideButton
-				/>
-			))}
+			<Suspense fallback={<div>Loading...</div>}>
+				{order.data.basket?.map((item) => (
+					<CheckoutProduct
+						id={item.id}
+						title={item.title}
+						price={item.price}
+						rating={item.rating}
+						image={item.image}
+						quantity={item.quantity}
+						hideButton
+					/>
+				))}
+			</Suspense>
 			<hr />
 			<div className="order__footer">
 				{order?.data.amount && (
