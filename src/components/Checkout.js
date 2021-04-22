@@ -1,8 +1,8 @@
-import React, { Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import "./Checkout.css";
-import Subtotal from "./Subtotal";
-import { useStateValue } from "./StateProvider";
+import { useStateValue } from "../StateProvider";
 
+const Subtotal = lazy(() => import("./Subtotal"));
 const CheckoutProduct = React.lazy(() => import("./CheckoutProduct"));
 
 function Checkout() {
@@ -42,7 +42,9 @@ function Checkout() {
 				</article>
 			</section>
 			<div className="checkout__right">
-				<Subtotal />
+				<Suspense fallback={<div>Loading...</div>}>
+					<Subtotal />
+				</Suspense>
 			</div>
 		</section>
 	);

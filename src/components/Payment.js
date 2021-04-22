@@ -1,13 +1,13 @@
 import React, { useState, useEffect, Suspense } from "react";
-import { useStateValue } from "./StateProvider";
+import { useStateValue } from "../StateProvider";
 import { Link } from "react-router-dom";
 import "./Payment.css";
-import { db } from "./firebase";
+import { db } from "../firebase";
 import CurrencyFormat from "react-currency-format";
-import { getBasketTotal } from "./reducer";
+import { getBasketTotal } from "../reducer";
 import { useHistory } from "react-router-dom";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import axios from "./axios";
+import axios from "../axios";
 const CheckoutProduct = React.lazy(() => import("./CheckoutProduct"));
 
 function Payment() {
@@ -39,7 +39,7 @@ function Payment() {
 		event.preventDefault();
 		setProcessing(true);
 
-		const payload = await stripe
+		await stripe
 			.confirmCardPayment(clientSecret, {
 				payment_method: {
 					card: elements.getElement(CardElement),
@@ -93,7 +93,7 @@ function Payment() {
 			});
 		const setPro = async () => {
 			if (user) {
-				const response = await axios({
+				await axios({
 					method: "post",
 					url: `/setPro?uid=${user.uid}`,
 				});

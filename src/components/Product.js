@@ -1,11 +1,11 @@
 import React from "react";
 import "./Product.css";
-import { useHistory, Link } from "react-router-dom";
-import { useStateValue } from "./StateProvider";
+import { Link } from "react-router-dom";
+import { useStateValue } from "../StateProvider";
 import CurrencyFormat from "react-currency-format";
 
 function Product({ id, title, image, price, rating, index }) {
-	const [{ basket }, dispatch] = useStateValue();
+	const [, dispatch] = useStateValue();
 
 	const addToBasket = () => {
 		dispatch({

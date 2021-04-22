@@ -1,8 +1,8 @@
 import React from "react";
 import "./ProductPage.css";
 import { useParams } from "react-router-dom";
-import { db } from "./firebase";
-import { useStateValue } from "./StateProvider";
+import { db } from "../firebase";
+import { useStateValue } from "../StateProvider";
 import { useEffect } from "react";
 import { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
@@ -53,7 +53,7 @@ function ProductPage() {
 					}
 				});
 		}
-	}, []);
+	}, [productId]);
 	const addToBasket = () => {
 		dispatch({
 			type: "ADD_TO_BASKET",

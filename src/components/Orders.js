@@ -1,10 +1,10 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import "./Orders.css";
-import { db } from "./firebase";
+import { db } from "../firebase";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useStateValue } from "./StateProvider";
-import Order from "./Order";
+import { useStateValue } from "../StateProvider";
+const Order = lazy(() => import("./Order"));
 
 function Orders() {
 	const [orders, setOrders] = useState([]);
@@ -33,7 +33,9 @@ function Orders() {
 				<center>{user ? "Your orders" : "Sign In to check your orders"}</center>
 			</h1>
 			{orders.map((order, index) => (
-				<Order order={order} key={index} />
+				<Suspense fallback={<div>Loading</div>}>
+					<Order order={order} key={index} />
+				</Suspense>
 			))}
 		</section>
 	);

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import { Link } from "react-router-dom";
-import { db } from "./firebase";
-import { useStateValue } from "./StateProvider";
-import { auth } from "./firebase";
+import { db } from "../firebase";
+import { useStateValue } from "../StateProvider";
+import { auth } from "../firebase";
 
 function Sidebar() {
-	const [{ basket, user }, dispatch] = useStateValue();
+	const [{ basket, user }] = useStateValue();
 	const [proUser, setProUser] = useState(false);
 	const handleAuthentiction = () => {
 		if (user) {

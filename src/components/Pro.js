@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./Pro.css";
-import { useStateValue } from "./StateProvider";
-import { db } from "./firebase";
+import { useStateValue } from "../StateProvider";
+import { db } from "../firebase";
 function Pro() {
 	const history = useHistory();
 	const [{ user }, dispatch] = useStateValue();
@@ -18,12 +18,12 @@ function Pro() {
 			}
 		};
 		return unsubscribe();
-	}, []);
+	}, [user]);
 	useEffect(() => {
 		if (pro) {
 			history.replace("/");
 		}
-	}, [pro]);
+	}, [pro, history]);
 	const joinPrime = () => {
 		dispatch({
 			type: "CLEAR_BASKET",
