@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import "./Login.css";
 import { auth } from "../firebase";
 
 function Login() {
@@ -49,12 +48,12 @@ function Login() {
 					<button
 						onClick={signIn}
 						type="submit"
-						className="login__signInButton"
+						className="login__signInButton btn"
 					>
 						Sign In
 					</button>
 				</form>
-				<p className="login__error">{error}</p>
+				<p className="error">{error}</p>
 				<p>
 					By signing-in you agree to Amazon-Fake-Clone's Conditions of Use &
 					Sale. Please see our Privacy Notice, our Cookies Notice and our

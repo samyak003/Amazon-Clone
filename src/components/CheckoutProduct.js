@@ -1,6 +1,5 @@
 import React from "react";
 import CurrencyFormat from "react-currency-format";
-import "./CheckoutProduct.css";
 import { useStateValue } from "../StateProvider";
 
 function CheckoutProduct({
@@ -94,7 +93,9 @@ function CheckoutProduct({
 						))}
 				</div>
 				{!hideButton && (
-					<button onClick={removeFromBasket}>Remove from basket</button>
+					<button className="btn" onClick={removeFromBasket}>
+						Remove from basket
+					</button>
 				)}
 			</main>
 		</article>

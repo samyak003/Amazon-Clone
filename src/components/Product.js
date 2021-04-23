@@ -1,5 +1,4 @@
 import React from "react";
-import "./Product.css";
 import { Link } from "react-router-dom";
 import { useStateValue } from "../StateProvider";
 import CurrencyFormat from "react-currency-format";
@@ -53,7 +52,7 @@ function Product({ id, title, image, price, rating, index }) {
 				</main>
 			</Link>
 			<center>
-				<button className="product__addBtn" onClick={addToBasket}>
+				<button className="btn" onClick={addToBasket}>
 					Add to Basket
 				</button>
 			</center>

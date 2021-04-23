@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { useStateValue } from "../StateProvider";
 import { Link } from "react-router-dom";
-import "./Payment.css";
 import { db } from "../firebase";
 import CurrencyFormat from "react-currency-format";
 import { getBasketTotal } from "../reducer";
@@ -86,10 +85,10 @@ function Payment() {
 				setSucceeded(true);
 				setError(null);
 				setProcessing(false);
-				history.replace("/orders");
 				dispatch({
 					type: "CLEAR_BASKET",
 				});
+				history.replace("/orders");
 			});
 		const setPro = async () => {
 			if (user) {
@@ -177,7 +176,7 @@ function Payment() {
 										disabled ||
 										succeeded
 									}
-									className="payment__buyBtn"
+									className="btn"
 								>
 									<span>{processing ? <p>Processing</p> : "Buy Now"}</span>
 								</button>

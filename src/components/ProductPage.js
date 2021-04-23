@@ -1,5 +1,4 @@
 import React from "react";
-import "./ProductPage.css";
 import { useParams } from "react-router-dom";
 import { db } from "../firebase";
 import { useStateValue } from "../StateProvider";
@@ -7,6 +6,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import CurrencyFormat from "react-currency-format";
+import firebase from "firebase";
 
 function ProductPage() {
 	const [{ user }, dispatch] = useStateValue();
@@ -15,45 +15,43 @@ function ProductPage() {
 	const [review, setReview] = useState("");
 	const [status, setStatus] = useState("Loading...");
 	const deleteReview = (index) => {
-		let reviews = product.reviews;
-		reviews.splice(index, 1);
 		db.collection("products")
 			.doc(productId)
-			.set({
-				...product,
-				reviews: reviews,
+			.update({
+				reviews: firebase.firestore.FieldValue.arrayRemove(
+					product.reviews[index],
+				),
 			});
 	};
 	const submitReview = (event) => {
 		event.preventDefault();
 		db.collection("products")
 			.doc(productId)
-			.set({
-				...product,
-				reviews: [
-					...product.reviews,
-					{
-						name: user.displayName,
-						email: user?.email,
-						text: review,
-					},
-				],
+			.update({
+				reviews: firebase.firestore.FieldValue.arrayUnion({
+					name: user.displayName,
+					email: user?.email,
+					text: review,
+				}),
 			});
 		setReview("");
 	};
 
 	useEffect(() => {
-		if (productId) {
-			db.collection("products")
-				.doc(productId)
-				.onSnapshot((snapshot) => {
-					setProduct(snapshot.data());
-					if (!snapshot.data()) {
-						setStatus("No product found");
-					}
-				});
-		}
-	}, [productId]);
+		const getProduct = () => {
+			if (productId) {
+				db.collection("products")
+					.doc(productId)
+					.onSnapshot((snapshot) => {
+						setProduct(snapshot.data());
+						if (!snapshot.data()) {
+							setStatus("No product found");
+						}
+					});
+			}
+		};
+		return getProduct();
+	});
 	const addToBasket = () => {
 		dispatch({
 			type: "ADD_TO_BASKET",
@@ -98,7 +96,9 @@ function ProductPage() {
 										</span>
 									))}
 							</div>
-							<button onClick={addToBasket}>Add to Basket</button>
+							<button className="btn" onClick={addToBasket}>
+								Add to Basket
+							</button>
 						</div>
 					</section>
 					<section className="productPage__featuresSection">
@@ -140,7 +140,7 @@ function ProductPage() {
 										{user?.email === review.email && (
 											<button
 												onClick={() => deleteReview(index)}
-												className="productPage__reviewDeleteBtn"
+												className="btn"
 											>
 												Delete
 											</button>
@@ -158,7 +158,11 @@ function ProductPage() {
 								onChange={(event) => setReview(event.target.value)}
 								placeholder="Write Your Review"
 							></input>
-							<button disabled={!user || !review} onClick={submitReview}>
+							<button
+								className="btn"
+								disabled={!user || !review}
+								onClick={submitReview}
+							>
 								Submit
 							</button>
 						</form>

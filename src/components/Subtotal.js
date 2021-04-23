@@ -1,5 +1,4 @@
 import React from "react";
-import "./Subtotal.css";
 import CurrencyFormat from "react-currency-format";
 import { useStateValue } from "../StateProvider";
 import { getBasketTotal } from "../reducer";
@@ -31,7 +30,8 @@ function Subtotal() {
 				prefix={"₹"}
 			></CurrencyFormat>
 			<button
-				onClick={(e) => {
+				className="btn"
+				onClick={() => {
 					user ? history.push("/payment") : history.push("/login");
 				}}
 			>

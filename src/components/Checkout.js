@@ -1,5 +1,4 @@
 import React, { lazy, Suspense } from "react";
-import "./Checkout.css";
 import { useStateValue } from "../StateProvider";
 
 const Subtotal = lazy(() => import("./Subtotal"));

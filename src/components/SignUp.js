@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import "./SignUp.css";
 import { auth } from "../firebase";
 
 function SignUp() {
@@ -55,11 +54,11 @@ function SignUp() {
 						value={password}
 					></input>
 				</form>
-				<p className="signUp__error">{error}</p>
+				<p className="error">{error}</p>
 				<button
 					disabled={!name || !email || !password}
 					onClick={register}
-					className="signUp__registerButton"
+					className="btn"
 				>
 					Create Your Amazon Account
 				</button>

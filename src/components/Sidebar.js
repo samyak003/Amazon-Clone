@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Sidebar.css";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import { Link } from "react-router-dom";
 import { db } from "../firebase";
@@ -15,16 +14,19 @@ function Sidebar() {
 		}
 	};
 	useEffect(() => {
-		if (user) {
-			db.collection("users")
-				.doc(user?.uid)
-				.onSnapshot((snapshot) => {
-					if (snapshot.data()) {
-						setProUser(snapshot.data().pro);
-					}
-				});
-		}
-	}, [user]);
+		const getProUser = () => {
+			if (user) {
+				db.collection("users")
+					.doc(user?.uid)
+					.onSnapshot((snapshot) => {
+						if (snapshot.data()) {
+							setProUser(snapshot.data().pro);
+						}
+					});
+			}
+		};
+		return getProUser();
+	});
 	return (
 		<section className="sidebar">
 			<Link to={user ? "/" : "/login"}>

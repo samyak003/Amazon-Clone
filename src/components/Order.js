@@ -1,5 +1,4 @@
 import React, { useEffect, Suspense, lazy } from "react";
-import "./Order.css";
 import moment from "moment";
 import CurrencyFormat from "react-currency-format";
 const CheckoutProduct = lazy(() => import("./CheckoutProduct"));

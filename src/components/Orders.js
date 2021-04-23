@@ -1,5 +1,4 @@
 import React, { lazy, Suspense } from "react";
-import "./Orders.css";
 import { db } from "../firebase";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -11,22 +10,25 @@ function Orders() {
 	const [{ user }] = useStateValue();
 
 	useEffect(() => {
-		if (user) {
-			db.collection("users")
-				.doc(user?.uid)
-				.collection("orders")
-				.orderBy("created", "desc")
-				.get()
-				.then((snapshot) => {
-					setOrders(
-						snapshot.docs.map((doc) => ({
-							id: doc.id,
-							data: doc.data(),
-						})),
-					);
-				});
-		}
-	});
+		const getOrders = () => {
+			if (user) {
+				db.collection("users")
+					.doc(user?.uid)
+					.collection("orders")
+					.orderBy("created", "desc")
+					.get()
+					.then((snapshot) => {
+						setOrders(
+							snapshot.docs.map((doc) => ({
+								id: doc.id,
+								data: doc.data(),
+							})),
+						);
+					});
+			}
+		};
+		return getOrders();
+	}, [user]);
 	return (
 		<section className="orders">
 			<h1>
