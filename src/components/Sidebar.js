@@ -27,9 +27,12 @@ function Sidebar() {
 		};
 		return getProUser();
 	});
+	const closeSidebar = () => {
+		document.querySelector(".sidebar").classList.remove("open");
+	};
 	return (
 		<section className="sidebar">
-			<Link to={user ? "/" : "/login"}>
+			<Link to={user ? "/" : "/login"} onClick={() => closeSidebar()}>
 				<div onClick={handleAuthentiction} className="sidebar__option">
 					<span className="sidebar__optionLineOne">
 						Hello, {user ? user.displayName || user.email : "Guest"}
@@ -39,20 +42,23 @@ function Sidebar() {
 					</span>
 				</div>
 			</Link>
-			<Link to="/orders">
+			<Link to="/orders" onClick={() => closeSidebar()}>
 				<div className="sidebar__option">
 					<span className="sidebar__optionLineOne">Returns</span>
 					<span className="sidebar__optionLineTwo">& Orders</span>
 				</div>
 			</Link>
-			<a href="https://github.com/samyak003/Amazon-Clone">
+			<a
+				href="https://github.com/samyak003/Amazon-Clone"
+				onClick={() => closeSidebar()}
+			>
 				<div className="sidebar__option">
 					<span className="sidebar__optionLineOne">Github</span>
 					<span className="sidebar__optionLineTwo">Repo</span>
 				</div>
 			</a>
 			{!proUser ? (
-				<Link to="/pro">
+				<Link to="/pro" onClick={() => closeSidebar()}>
 					<div className="sidebar__option">
 						<span className="sidebar__optionLineOne">Upgrade To</span>
 						<span className="sidebar__optionLineTwo">Pro</span>
@@ -61,7 +67,7 @@ function Sidebar() {
 			) : (
 				<></>
 			)}
-			<Link to="/checkout">
+			<Link to="/checkout" onClick={() => closeSidebar()}>
 				<div className="sidebar__optionBasket">
 					<ShoppingBasketIcon />
 					<span className="sidebar__optionLineTwo header__basketCount">

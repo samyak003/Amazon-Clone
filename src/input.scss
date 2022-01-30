@@ -534,6 +534,7 @@ option {
 	transition: all 0.3s linear;
 	@include dimensions(100%, 0);
 	box-shadow: 0px 10px 12px 0px rgba(0, 0, 0, 0.3);
+	background-color: #131921;
 }
 .sidebar__option {
 	@include displayFlex(none, none, column);
