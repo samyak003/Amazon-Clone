@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { db } from "../firebase";
-import { useState } from "react";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { Suspense } from "react";
+import { useStateValue } from "../StateProvider";
 
 const images = [
 	"https://images-eu.ssl-images-amazon.com/images/G/31/AmazonVideo/2020/X-site/Multititle/Aug/3000x1200_Hero-Tall_np._CB404803728_.jpg",
@@ -14,7 +14,7 @@ const images = [
 
 const Product = React.lazy(() => import("./Product"));
 function Home() {
-	const [products, setProducts] = useState([]);
+	const [{ products }, dispatch] = useStateValue();
 
 	useEffect(() => {
 		var slideIndex = 1;
@@ -52,29 +52,31 @@ function Home() {
 		const getProducts = () => {
 			db.collection("products")
 				.get()
-				.then((snapshot) => {
-					setProducts(
-						snapshot.docs.map((doc) => ({
+				.then((snapshot) =>
+					dispatch({
+						type: "SET_ALLPRODUCTS",
+						allProducts: snapshot.docs.map((doc) => ({
 							id: doc.id,
 							product: doc.data(),
 						})),
-					);
-				});
+					}),
+				);
 		};
 		return getProducts();
 	}, []);
+
 	return (
 		<section className="home">
 			<article id="slideshow" className="home__container">
 				<ArrowBackIosIcon id="home__slideshowBack" />
-				{images.map((image) => (
-					<img alt="banner" className="home__image" src={image} />
+				{images.map((image, index) => (
+					<img alt="banner" key={index} className="home__image" src={image} />
 				))}
 				<ArrowForwardIosIcon id="home__slideshowForward" />
 			</article>
 			<article className="home__row">
 				<Suspense fallback={<div>Loading...</div>}>
-					{products.map(({ id, product }, index) => (
+					{products?.map(({ id, product }, index) => (
 						<Product
 							key={id}
 							id={id}

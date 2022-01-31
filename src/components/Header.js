@@ -8,7 +8,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Sidebar from "./Sidebar";
 
 function Header() {
-	const [{ basket, user }] = useStateValue();
+	const [{ basket, user, allProducts }, dispatch] = useStateValue();
 	const [proUser, setProUser] = useState(false);
 	const handleAuthentiction = () => {
 		if (user) {
@@ -43,7 +43,25 @@ function Header() {
 					/>
 				</Link>
 				<div className="header__search">
-					<input className="header__searchInput" type="text"></input>
+					<input
+						className="header__searchInput"
+						type="text"
+						onChange={(e) => {
+							dispatch({
+								type: "SET_PRODUCTS",
+								products: allProducts.filter((product) => {
+									if (
+										product &&
+										product.product.title
+											.toLowerCase()
+											.includes(e.target.value.toLowerCase())
+									) {
+										return product;
+									}
+								}),
+							});
+						}}
+					></input>
 					<SearchIcon className="header__searchIcon"></SearchIcon>
 				</div>
 			</section>
