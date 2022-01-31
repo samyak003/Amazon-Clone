@@ -524,7 +524,7 @@ option {
 }
 
 .productPage {
-  margin: 80px 10vw 0 10vw;
+  margin: 80px 20px;
   background-color: white;
   padding: 10px;
 }
@@ -557,6 +557,10 @@ option {
 .productPage__review,
 .productPage__feature {
   margin: 10px 0;
+}
+.productPage__review p,
+.productPage__feature p {
+  margin-top: 10px;
 }
 
 .productPage__reviewForm {

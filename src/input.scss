@@ -455,7 +455,7 @@ option {
 	@include displayFlex(none, none);
 }
 .productPage {
-	margin: 80px 10vw 0 10vw;
+	margin: 80px 20px;
 	background-color: white;
 	padding: $padding-1;
 }
@@ -480,6 +480,9 @@ option {
 .productPage__review,
 .productPage__feature {
 	margin: 10px 0;
+	p {
+		margin-top: 10px;
+	}
 }
 .productPage__reviewForm {
 	@include displayFlex(none, none);
